@@ -228,6 +228,7 @@ def modules(id):
         project = Project.query.get_or_404(id)
         modules = get_module_tree(id)
         
+        # 复用操作管理页面
         return render_template('project/modules.html',
                              project=project,
                              modules=modules)
@@ -235,6 +236,34 @@ def modules(id):
         logger.error(f"模块列表加载失败: {e}")
         flash('模块列表加载失败', 'error')
         return redirect(url_for('project.detail', id=id))
+
+
+# 新增专门页面管理复用操作的接口示例
+@project_bp.route('/<int:id>/manage', methods=['GET', 'POST'])
+def manage_project(id):
+    """专门页面管理复用操作"""
+    try:
+        project = Project.query.get_or_404(id)
+        if request.method == 'POST':
+            data = request.get_json() if request.is_json else request.form
+            action = data.get('action')
+            if action == 'archive':
+                project.status = 'archived'
+                project.save()
+                return jsonify({'success': True, 'message': '项目已归档'})
+            elif action == 'activate':
+                project.status = 'active'
+                project.save()
+                return jsonify({'success': True, 'message': '项目已激活'})
+            else:
+                return jsonify({'success': False, 'message': '未知操作'}), 400
+        else:
+            return render_template('project/manage.html', project=project)
+    except Exception as e:
+        logger.error(f"管理页面加载失败: {e}")
+        flash('管理页面加载失败', 'error')
+        return redirect(url_for('project.detail', id=id))
+
 
 @project_bp.route('/<int:id>/modules/create', methods=['POST'])
 def create_module(id):
