@@ -1,0 +1,135 @@
+# 应用配置
+app:
+  secret_key: "your-secret-key-here"
+  debug: true
+  host: "127.0.0.1"
+  port: 5000
+
+# 数据库配置
+database:
+  host: "localhost"
+  port: 3306
+  username: "root"
+  password: "password"
+  database: "autotest_db"
+  charset: "utf8mb4"
+
+# Redis配置
+redis:
+  host: "localhost"
+  port: 6379
+  db: 0
+  password: ""
+
+# AI服务配置
+ai:
+  provider: "openai"  # openai, baidu, anthropic, local
+  openai:
+    api_key: "your-openai-api-key"
+    model: "gpt-4"
+    base_url: "https://api.openai.com/v1"
+    max_tokens: 2000
+    temperature: 0.7
+  baidu:
+    api_key: "your-baidu-api-key"
+    secret_key: "your-baidu-secret-key"
+    model: "ernie-bot-4"
+  anthropic:
+    api_key: "your-anthropic-api-key"
+    model: "claude-3-sonnet-20240229"
+  local:
+    model_path: "./models/local_model"
+    device: "cpu"
+
+# 测试环境配置
+environment:
+  development:
+    base_url: "https://dev.example.com"
+    api_base_url: "https://api-dev.example.com"
+    accounts:
+      - username: "dev_user1"
+        password: "dev_pass1"
+      - username: "dev_user2"
+        password: "dev_pass2"
+  
+  test:
+    base_url: "https://test.example.com"
+    api_base_url: "https://api-test.example.com"
+    accounts:
+      - username: "test_user1"
+        password: "test_pass1"
+      - username: "test_user2"
+        password: "test_pass2"
+
+# 浏览器配置
+browser:
+  default: "chrome"
+  headless: false
+  window_size: "1920,1080"
+  implicit_wait: 10
+  page_load_timeout: 30
+  script_timeout: 30
+  download_path: "./downloads"
+  
+# 测试执行配置
+execution:
+  max_workers: 4
+  retry_count: 2
+  screenshot_on_failure: true
+  video_recording: false
+  timeout: 300
+  
+# 报告配置
+report:
+  format: "html"
+  title: "AI增强自动化测试报告"
+  description: "集成AI技术的Web应用自动化测试结果"
+  template: "default"
+  
+# 日志配置
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_rotation: "10 MB"
+  retention: "30 days"
+  console_output: true
+  
+# 文件存储配置
+storage:
+  screenshots_path: "./screenshots"
+  reports_path: "./reports"
+  logs_path: "./logs"
+  uploads_path: "./uploads"
+  temp_path: "./temp"
+  
+# Bug管理配置
+bug:
+  auto_create: true
+  similarity_threshold: 0.8
+  severity_levels:
+    - "低"
+    - "中"
+    - "高"
+    - "严重"
+  status_flow:
+    - "新建"
+    - "已分配"
+    - "处理中"
+    - "已解决"
+    - "已关闭"
+  
+# AI功能配置
+ai_features:
+  testcase_generation:
+    enabled: true
+    accuracy_threshold: 0.8
+  coverage_analysis:
+    enabled: true
+    missing_detection_rate: 0.9
+  bug_analysis:
+    enabled: true
+    root_cause_analysis: true
+    fix_suggestion: true
+  risk_prediction:
+    enabled: true
+    priority_adjustment: true
